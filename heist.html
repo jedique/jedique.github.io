@@ -15,4 +15,43 @@
                 <p class="clickable-para">Suffix: Heist Chests have a #% chance to Duplicate contained Basic Currency</span></p>
 			</div>
 		</div>
-	</div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var clickedSteps = JSON.parse(localStorage.getItem('clickedSteps')) || {};
+
+                function toggleStepColor(stepIndex, sectionIndex) {
+                    var key = sectionIndex + '-' + stepIndex;
+                    if (clickedSteps[key]) {
+                        delete clickedSteps[key];
+                    } else {
+                        clickedSteps[key] = true;
+                    }
+                    localStorage.setItem('clickedSteps', JSON.stringify(clickedSteps));
+                }
+                $(".navbar a").click(function() {
+                    $(".navbar a").removeClass("active");
+                    $(this).addClass("active");
+                });
+                $(".clickable-para").each(function(stepIndex) {
+                    var sectionIndex = $(this).closest('.section').index();
+                    var key = sectionIndex + '-' + stepIndex;
+                    if (clickedSteps[key]) {
+                        $(this).addClass('clicked');
+                    }
+                    var stepNumber = stepIndex + 1; // Calculate the step number
+                    $(this).prepend('<span class="step-number">' + stepNumber + '.</span> '); // Add step number
+                    $(this).click(function() {
+                        $(this).toggleClass('clicked');
+                        toggleStepColor(stepIndex, sectionIndex);
+                    });
+                });
+                $(window).scroll(function() {
+                    updateStepNumbers();
+                });
+            });
+        </script>
+    </div>
+</body>
+
+</html>
