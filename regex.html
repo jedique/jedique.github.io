@@ -24,6 +24,12 @@
         p {
             color: #ccc;
         }
+        code {
+            cursor: pointer;
+            background-color: #333;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -31,15 +37,24 @@
 <div class="container">
     <h1>Map Regex</h1>
     <p><b>DD (T17):</b></p>
-    <p>First Regex: <code>"!f ph|on,|efe|ss are|o al|kes|s rec|deb"</code></p>
+    <p>First Regex: <code class="regex">!f ph|on,|efe|ss are|o al|kes|s rec|deb</code></p>
     <p><b>Mana Guy:</b></p>
-    <p><code>"!tal d|eec|gen|h el|ss are|coo" "y: r"</code></p>
+    <p><code class="regex">!tal d|eec|gen|h el|ss are|coo" "y: r</code></p>
 </div>
 
 <div class="container">
     <h1>Bestiary Regex</h1>
-    <p><code>"c fr|c sh|sq|c wa|c fl|c ga|c goa|c gol|ic ta|mal d|l q|l scr|l w|ne b|ne co|e ret|ine rho|c san"</code></p>
+    <p><code class="regex">c fr|c sh|sq|c wa|c fl|c ga|c goa|c gol|ic ta|mal d|l q|l scr|l w|ne b|ne co|e ret|ine rho|c san</code></p>
 </div>
+
+<script>
+    document.querySelectorAll('.regex').forEach(item => {
+        item.addEventListener('click', event => {
+            navigator.clipboard.writeText(item.innerText);
+            alert('Regex copied to clipboard!');
+        });
+    });
+</script>
 
 </body>
 </html>
